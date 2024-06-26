@@ -1,11 +1,85 @@
+<!DOCTYPE html>
 <html>
-<style></style>
+
+<head>
+    <title>First Attendance Certificate</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: rgb(219,112,147);
+            background: radial-gradient(circle, rgba(219,112,147,1) 0%, rgba(255,255,255,1) 100%);
+            font-family: Arial, sans-serif;
+            
+        }
+        h1 {
+            color: #333;
+            text-transform: uppercase;
+            width: 500px;
+            text-align: center;
+        }
+        #myText {
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        #myButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #myButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
 <body>
-    <h1>hello world!!</h1>
-    <div id="render"></div>
+    <h1>Enter the name that you would like to appear on the certificate, then select the button bellow to download it as a PDF.</h1>
+    <input type="text" id="myText" placeholder="enter your name here">
+    <button id="myButton">Download Certificate</button>
+
+    <script>
+        document.getElementById('myButton').onclick = function () {
+            var text = document.getElementById('myText').value;
+
+            window.jsPDF = window.jspdf.jsPDF;
+
+            var doc = new jsPDF("landscape", "in", [11, 8.5]);
+
+            doc.text("Certificate", 10, 10);
+            doc.addImage("https://cp-it-rbny.github.io/signature/Certificate_background.png", 'PNG', 0, 0, 11, 8.5);
+            doc.setFontSize(40);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('Lato-Black', 'bold');
+            doc.text(text,(doc.internal.pageSize.width / 2),6.1,null,null,'center');
+            /* This tells the PDF to add text to the page. 
+            The first argument is the text to add (in this case a JavaScript variable), 
+            the second is the x-coordinate (in this case we’re using a function to find a middle point for the document),
+            the third is the y-coordinate (in millimeters), 
+            the fourth and fifth arguments are null, 
+            and the sixth argument says that the text should be centered */
+  
+            // Save the PDF
+            doc.save('Certificate.pdf');
+           // doc.output('dataurlnewwindow', 'certificate.pdf');
+
+            //alert(text);
+        }
+    </script>
 </body>
-<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-<script>
- 
-</script>
+
 </html>
