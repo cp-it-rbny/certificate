@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "jspdf": "^2.5.1"
   },
   "devDependencies": {},
   "description": ""
