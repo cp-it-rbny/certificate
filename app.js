@@ -8,7 +8,7 @@ app.get("/", (req, res) => res.type('html').send(html));
 app.get("/certificate", (req, res) =>{
     const doc = new jsPDF('landscape');
     doc.text("Hello world!", 10, 10);
-    doc.save("a4.pdf"); // will save the file in the current working directory
+
     doc.output('dataurlnewwindow', "certificate.pdf")
     res.statusCode = 200;
     res.end("ok");
