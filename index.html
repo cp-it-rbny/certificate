@@ -12,49 +12,83 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background: rgb(219,112,147);
-            background: radial-gradient(circle, rgba(219,112,147,1) 0%, rgba(255,255,255,1) 100%);
+            background: rgb(255, 255, 255);
+            background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 26%, rgba(133, 133, 133, 1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(255, 255, 255, 1) 26%, rgba(133, 133, 133, 1) 100%);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 1) 26%, rgba(133, 133, 133, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#858585", GradientType=1);
             font-family: Arial, sans-serif;
-            
+
         }
+
         h1 {
             color: #333;
             text-transform: uppercase;
             width: 500px;
             text-align: center;
         }
+
         #myText {
             width: 300px;
             padding: 10px;
             border: none;
             border-radius: 5px;
-            box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
+            box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
             text-align: center;
         }
+
         #myButton {
             margin-top: 20px;
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: rgb(218, 26, 50);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         #myButton:hover {
-            background-color: #0056b3;
+            background-color: rgb(220, 48, 68);
+            box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
         }
+        label{
+            padding: 10px;
+            border: none;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        
     </style>
 </head>
 
 <body>
-    <h1>Enter the name that you would like to appear on the certificate, then select the button bellow to download it as a PDF.</h1>
+    <h1>Complete the form below to receive your First Game certificate.</h1>
     <input type="text" id="myText" placeholder="enter your name here">
+
+    <label for="eventDate">Match Date:</label>
+    <select name="eventDate" id="eventDate" placeholder="Match Date">
+        <option value="April 27, 2024">April 27, 2024</option>
+        <option value="May 11, 2024">May 11, 2024</option>
+        <option value="May 29, 2024">May 29, 2024</option>
+        <option value="June 1, 2024">June 1, 2024</option>
+        <option value="June 15, 2024">June 15, 2024</option>
+        <option value="June 22, 2024">June 22, 2024</option>
+        <option value="June 29, 2024">June 29, 2024</option>
+        <option value="July 17, 2024">July 17, 2024</option>
+        <option value="July 20, 2024">July 20, 2024</option>
+        <option value="August 31, 2024">August 31, 2024</option>
+        <option value="September 7, 2024">September 7, 2024</option>
+        <option value="September 21, 2024">September 21, 2024</option>
+        <option value="September 28, 2024">September 28, 2024</option>
+        <option value="October 19, 2024">October 19, 2024</option>
+    </select>
     <button id="myButton">Download Certificate</button>
 
     <script>
         document.getElementById('myButton').onclick = function () {
             var text = document.getElementById('myText').value;
+            var date = document.getElementById('eventDate').value;
 
             window.jsPDF = window.jspdf.jsPDF;
 
@@ -62,20 +96,26 @@
 
             doc.text("Certificate", 10, 10);
             doc.addImage("https://cp-it-rbny.github.io/signature/Certificate_background.png", 'PNG', 0, 0, 11, 8.5);
+            
             doc.setFontSize(40);
             doc.setTextColor(255, 255, 255);
             doc.setFont('Lato-Black', 'bold');
-            doc.text(text,(doc.internal.pageSize.width / 2),6.1,null,null,'center');
+            doc.text(text, (doc.internal.pageSize.width / 2), 6.1, null, null, 'center');
+
+            doc.setFontSize(27);
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('Lato-Black', 'bold');
+            doc.text("on " + date, (doc.internal.pageSize.width / 2), 7.2, null, null, 'center');
             /* This tells the PDF to add text to the page. 
             The first argument is the text to add (in this case a JavaScript variable), 
             the second is the x-coordinate (in this case we’re using a function to find a middle point for the document),
             the third is the y-coordinate (in millimeters), 
             the fourth and fifth arguments are null, 
             and the sixth argument says that the text should be centered */
-  
+
             // Save the PDF
             doc.save('Certificate.pdf');
-           // doc.output('dataurlnewwindow', 'certificate.pdf');
+            // doc.output('dataurlnewwindow', 'certificate.pdf');
 
             //alert(text);
         }
